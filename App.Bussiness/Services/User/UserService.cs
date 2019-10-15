@@ -15,6 +15,34 @@ namespace App.Bussiness.Service
     {
 
         /// <summary>
+        /// 用户注册
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        public virtual void Register(string username, string password, string phone, string compid)
+        {
+            if (GetUserByUserId(username) == null)
+            {
+                TsUser user = new TsUser
+                {
+                    Id = username,
+                    CPassword = SimpleCipherHelper.Instance.MD5EncryptWithSalt(password, "rvmob"),
+                    CPhone = phone,
+                    CCompany = compid,
+                    CEnable = "Y"
+                };
+                GetDbContext().Insert(user);
+            }
+            else
+            {
+                throw new Exception("用户名被占用，请重新输入！");
+            }
+
+        }
+
+        /// <summary>
         /// 登录
         /// </summary>
         /// <param name="username"></param>
@@ -66,6 +94,17 @@ namespace App.Bussiness.Service
         }
 
         /// <summary>
+        /// 根据Id查询用户
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public virtual TsUser GetUserByUserId(string userid)
+        {
+            return GetDbContext().GetTable<TsUser>()
+                .FirstOrDefault(x => x.Id.Equals(userid));
+        }
+
+        /// <summary>
         /// 登录后更新用户
         /// </summary>
         /// <param name="userid"></param>
@@ -86,7 +125,7 @@ namespace App.Bussiness.Service
         /// <param name="userid"></param>
         /// <param name="newpass"></param>
         /// <param name="oldpass"></param>
-        private void UpdateTsUserPassword(string token, string newpass, string oldpass)
+        public virtual int UpdateTsUserPassword(string token, string newpass, string oldpass)
         {
             var tsUser = GetTsUserByToken(token);
             string b = SimpleCipherHelper.Instance.MD5EncryptWithSalt(oldpass, "rvmob");
@@ -95,19 +134,20 @@ namespace App.Bussiness.Service
                 throw new Exception("原始密码错误，请检查！");
             }
             //更新密码
-            GetDbContext().GetTable<TsUser>()
-                .Where(x => x.Id.Equals(tsUser.CUsername))
-                .Update(x => new TsUser
-                {
-                    CPassword = SimpleCipherHelper.Instance.MD5EncryptWithSalt(newpass, "rvmob")
-                });
+            return GetDbContext().GetTable<TsUser>()
+                 .Where(x => x.Id.Equals(tsUser.CUsername))
+                 .Update(x => new TsUser
+                 {
+                     CPassword = SimpleCipherHelper.Instance.MD5EncryptWithSalt(newpass, "rvmob")
+                 });
+
         }
 
         /// <summary>
         /// 更新用户信息
         /// </summary>
         /// <param name="user"></param>
-        private void UpdateTsUser(TsUser user)
+        public virtual void UpdateTsUser(TsUser user)
         {
             GetDbContext().Update(user);
         }

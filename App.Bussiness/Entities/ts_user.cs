@@ -57,6 +57,13 @@ namespace App.Bussiness.Entities
         public virtual string CEnable { get; set; }
 
         /// <summary>
+        /// 公司Id
+        /// </summary>
+        [Display(Name = "公司Id"), Column("C_COMPANY")]
+        public virtual string CCompany { get; set; }
+
+
+        /// <summary>
         /// 登录SessionID
         /// </summary>
         [Display(Name = "登录SessionID"), Column("C_SESSION_ID", Length = 32)]
@@ -115,6 +122,8 @@ namespace App.Bussiness.Entities
             get;
             set;
         }
+
+        = DateTime.Now;
 
         /// <summary>
         /// 登录超时验证
