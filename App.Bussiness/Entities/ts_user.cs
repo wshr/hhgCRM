@@ -91,7 +91,7 @@ namespace App.Bussiness.Entities
         /// <summary>
         /// 登陆时间
         /// </summary>
-        [Display(Name = "登陆时间"), Column("D_LOGINED_TIME")]
+        [Display(Name = "登录时间"), Column("D_LOGINED_TIME")]
         public virtual DateTime? DLoginedTime
         {
             get;
