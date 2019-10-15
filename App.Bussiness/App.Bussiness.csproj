@@ -49,7 +49,9 @@
     <Compile Include="Entities\ts_user.cs" />
     <Compile Include="Entities\top_8950.generated.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Helpers\LocalSeqHelper.cs" />
     <Compile Include="Helpers\SimpleCipherHelper.cs" />
+    <Compile Include="Services\SeqService.cs" />
     <Compile Include="Services\TestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\User\PermissionService.cs" />

@@ -15,6 +15,8 @@ namespace App.Core.Services
         protected static ProxyGenerator _generator;
         protected static IRepository _repository;
 
+       
+
         static AppService()
         {
             _generator = new ProxyGenerator();
@@ -38,5 +40,9 @@ namespace App.Core.Services
 
             return _repository;
         }
+
+
     }
+
+    
 }

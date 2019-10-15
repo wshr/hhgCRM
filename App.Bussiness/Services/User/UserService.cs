@@ -21,7 +21,7 @@ namespace App.Bussiness.Service
         /// <param name="password"></param>
         /// <param name="phone"></param>
         /// <returns></returns>
-        public virtual void Register(string username, string password, string phone, string compid)
+        public virtual void Register(string username, string password, string name, string phone, string email, string compid)
         {
             if (GetUserByUserId(username) == null)
             {
@@ -30,6 +30,7 @@ namespace App.Bussiness.Service
                     Id = username,
                     CPassword = SimpleCipherHelper.Instance.MD5EncryptWithSalt(password, "rvmob"),
                     CPhone = phone,
+                    CUsername = name,
                     CCompany = compid,
                     CEnable = "Y"
                 };
